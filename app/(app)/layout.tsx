@@ -8,6 +8,11 @@ import { AuthGuard } from '@/features/auth/components/AuthGuard';
 import { NotificationBell } from '@/features/notifications/components/NotificationBell';
 import { useSessionStore } from '@/shared/store/session.store';
 
+const LINKS = [
+    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/exercises', label: 'Ejercicios' },
+];
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -25,17 +30,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
         <AuthGuard>
             <div className="min-h-screen bg-base-200">
-                <header className="navbar bg-base-100 shadow-sm px-6 justify-between border-b border-base-300">
-                    <nav className="flex items-center gap-4">
-                        <Link
-                            href="/dashboard"
-                            className={`btn btn-ghost btn-sm ${pathname === '/dashboard' ? 'btn-active font-bold' : ''}`}
-                        >
-                            Dashboard
-                        </Link>
+                <header className="navbar flex-wrap gap-2 bg-base-100 shadow-sm px-4 sm:px-6 justify-between border-b border-base-300">
+                    <nav className="flex items-center gap-2 sm:gap-4">
+                        {LINKS.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={`btn btn-ghost btn-sm ${pathname.startsWith(link.href) ? 'btn-active font-bold' : ''}`}
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
                     </nav>
 
-                    <div className="flex items-center gap-3">
+                    <div className="ml-auto flex items-center gap-2 sm:gap-3">
                         {/* Campana de notificaciones reactiva de DaisyUI */}
                         <NotificationBell />
 
@@ -49,7 +57,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     </div>
                 </header>
 
-                <main className="max-w-4xl mx-auto p-6">{children}</main>
+                <main className="max-w-4xl mx-auto p-4 sm:p-6">{children}</main>
             </div>
         </AuthGuard>
     );
