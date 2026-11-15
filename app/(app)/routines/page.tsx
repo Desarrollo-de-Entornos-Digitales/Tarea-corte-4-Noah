@@ -15,6 +15,7 @@ export default function RoutinesPage() {
                     <h1 className="text-2xl font-bold">Rutinas</h1>
                     <p className="text-sm opacity-70">Combina ejercicios y marca lo que ya hiciste.</p>
                 </div>
+                <Link href="/routines/new" className="btn btn-primary btn-sm">Nueva rutina</Link>
             </header>
 
             <ul className="grid gap-4 sm:grid-cols-2">
