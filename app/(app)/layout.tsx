@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { authService } from '@/features/auth/services/auth.service';
 import { AuthGuard } from '@/features/auth/components/AuthGuard';
 import { NotificationBell } from '@/features/notifications/components/NotificationBell';
+import { toggleThemeAction } from '@/shared/actions/theme';
 import { useSessionStore } from '@/shared/store/session.store';
 
 const LINKS = [
@@ -50,9 +51,14 @@ export default function AppLayout({
                         ))}
                     </nav>
 
-                    <div className="ml-auto flex items-center gap-2 sm:gap-3">
+                    <div className="ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-3">
                         {/* Campana de notificaciones reactiva de DaisyUI */}
                         <NotificationBell />
+
+                        {/* Un form cuya acción es una Server Action: cambia la cookie del tema */}
+                        <form action={toggleThemeAction}>
+                            <button type="submit" className="btn btn-ghost btn-sm">Cambiar tema</button>
+                        </form>
 
                         <button
                             type="button"
