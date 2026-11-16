@@ -7,6 +7,10 @@ export default defineConfig({
     // Las pruebas de archivos distintos corren en paralelo
     fullyParallel: true,
 
+    // Un navegador a la vez: con 3 o más en paralelo, page.goto se quedaba esperando en este equipo
+    // (el antivirus revisa las conexiones de cada navegador). Además, las rutinas viven en memoria
+    workers: 1,
+
     // Si dejas un test.only por error, la ejecución falla en lugar de saltarse el resto
     forbidOnly: !!process.env.CI,
 
